@@ -29,4 +29,3 @@ var albumPicasso = {
          { title: 'Wrong phone number', duration: '2:15'}
      ]
  };
-Contact GitHub API Training Shop Blog About
