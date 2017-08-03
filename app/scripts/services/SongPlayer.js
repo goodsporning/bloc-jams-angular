@@ -1,29 +1,73 @@
-(function(){
-  function SongPlayer(){
-    var SongPlayer = {};
+// (function(){
+//   function SongPlayer(){
+//     var SongPlayer = {};
+//
+//     var currentSong = null;
+//     var currentBuzzObject = null;
+//
+//     SongPlayer.play = function(song){
+//       if(currentSong !== song){
+//         if(currentBuzzObject){
+//           currentSong.stop();
+//           currentSong.playing = null;
+//
+//         } else if(currentSong === song){
+//           if(currentBuzzObject.isPaused()){
+//             currentBuzzObject.play();
+//           }
+//         }
+//
+//       };
+//
+//       SongPlayer.pause = function(song){
+//
+//       }
+//
+//       currentBuzzObject = new buzz.sound(song.audioUrl, {
+//         formats: ['mp3'],
+//         preload: true
+//       });
+//
+//       currentSong = song;
+//
+//       currentBuzzObject.play();
+//       song.playing = true;
+//     }
+//   };
+//
+//     return SongPlayer;
+//   }
+(function() {
+    function SongPlayer() {
+         var SongPlayer = {};
+         var currentSong = null;
+         var currentBuzzObject = null;
 
-    var currentSong = null;
-    var currentBuzzObject = null;
+         SongPlayer.play = function(song) {
+           if (currentSong !== song) {
+              if (currentBuzzObject) {
+                currentBuzzObject.stop();
+              }
 
-    SongPlayer.play = function(song){
-      if(currentSong !== song){
-        if(currentBuzzObject){
-          currentSong.stop();
-        }
+              currentBuzzObject = new buzz.sound(song.audioUrl, {
+                  formats: ['mp3'],
+                  preload: true
+              });
 
-      }
-      currentBuzzObject = new buzz.sound(song.audioUrl,
-        formats: ['mp3'],
-        preload: true
-      });
+             currentSong = song;
 
-      currentSong = song;
-      currentBuzzObject.play();
+             currentBuzzObject.play();
+
+           } else if (currentSong === song) {
+           if (currentBuzzObject.isPaused()) {
+               currentBuzzObject.play();
+           }
+       }
+       };
+
+         return SongPlayer;
     }
-  };
 
-    return SongPlayer;
-  }
 
   angular
       .module('blocJams')
