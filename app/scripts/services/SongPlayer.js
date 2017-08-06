@@ -1,68 +1,48 @@
-// (function(){
-//   function SongPlayer(){
-//     var SongPlayer = {};
-//
-//     var currentSong = null;
-//     var currentBuzzObject = null;
-//
-//     SongPlayer.play = function(song){
-//       if(currentSong !== song){
-//         if(currentBuzzObject){
-//           currentSong.stop();
-//           currentSong.playing = null;
-//
-//         } else if(currentSong === song){
-//           if(currentBuzzObject.isPaused()){
-//             currentBuzzObject.play();
-//           }
-//         }
-//
-//       };
-//
-//       SongPlayer.pause = function(song){
-//
-//       }
-//
-//       currentBuzzObject = new buzz.sound(song.audioUrl, {
-//         formats: ['mp3'],
-//         preload: true
-//       });
-//
-//       currentSong = song;
-//
-//       currentBuzzObject.play();
-//       song.playing = true;
-//     }
-//   };
-//
-//     return SongPlayer;
-//   }
+
 (function() {
     function SongPlayer() {
          var SongPlayer = {};
          var currentSong = null;
+ /**
+ * @desc Buzz object audio file
+ * @type {Object}
+ */
+
          var currentBuzzObject = null;
+/**
+*@function setSong
+*@desc Stops currently playing song and loads new audio file as currently playing song and loads new audio file as currentBuzzObject
+*@param {object} song
+*/
+         var setSong = function(song){
+           if(currentBuzzObject) {
+             currentBuzzObject.stop();
+             currentSong.playing = null;
+           }
+           currentBuzzObject = new buzz.sound(song.audioUrl, {
+             formats: ['mp3'],
+             preload: true
+           });
+           currentSong = song;
+         };
 
          SongPlayer.play = function(song) {
            if (currentSong !== song) {
-              if (currentBuzzObject) {
-                currentBuzzObject.stop();
-              }
-
-              currentBuzzObject = new buzz.sound(song.audioUrl, {
-                  formats: ['mp3'],
-                  preload: true
-              });
-
-             currentSong = song;
+              setSong(song);
 
              currentBuzzObject.play();
+             song.playing = true;
 
            } else if (currentSong === song) {
            if (currentBuzzObject.isPaused()) {
                currentBuzzObject.play();
            }
        }
+       };
+
+       SongPlayer.pause = function(song){
+         currentBuzzObject.pause();
+         song.playing = false;
        };
 
          return SongPlayer;
