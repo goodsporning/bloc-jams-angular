@@ -14,21 +14,22 @@
             *@desc Stops currently playing song and loads new audio file as currently playing song and loads new audio file as currentBuzzObject
             *@param {object} song
             */
-         var setSong = function(song){
-           if(currentBuzzObject) {
-             currentBuzzObject.stop();
-             SongPlayer.currentSong.playing = null;
-           }
-           currentBuzzObject = new buzz.sound(song.audioUrl, {
-             formats: ['mp3'],
-             preload: true
-           });
+            var setSong = function(song) {
+              if (currentBuzzObject) {
+                currentBuzzObject.stop();
+                SongPlayer.currentSong.playing = null;
+              }
 
-           currentBuzzObject.bind('timeupdate', function() {
-              $rootScope.$apply(function() {
-                SongPlayer.currentTime = currentBuzzObject.getTime();
-              });
-            });
+            currentBuzzObject = new buzz.sound(song.audioUrl, {
+                formats: ['mp3'],
+                preload: true
+                });
+
+            currentBuzzObject.bind('timeupdate', function() {
+                $rootScope.$apply(function() {
+                  SongPlayer.currentTime = currentBuzzObject.getTime();
+                });
+           });
 
            SongPlayer.currentSong = song;
          };
@@ -81,7 +82,6 @@
                 }
            }
         };
-
 
 
        SongPlayer.pause = function(song){
@@ -143,6 +143,29 @@
            currentBuzzObject.setTime(time);
          }
        };
+       //  /**
+       //  *@desc sets and updates the volume of the currently playing song.
+       //  *@type {number}
+       //  */
+         SongPlayer.volume = null;
+
+         SongPlayer.setVolume = function(value){
+           if(currentBuzzObject){
+             currentBuzzObject.setVolume(value);
+           }
+         }; 
+
+        // SongPlayer.setVolume();
+
+        //  currentBuzzObject.bind('volumeUpdate', function() {
+        //      $rootScope.$apply(function() {
+        //        SongPlayer.volume = currentBuzzObject.setVolume();
+        //      });
+        // });
+
+         //SongPlayer.setVolume(100);
+
+
 
          return SongPlayer;
     };
