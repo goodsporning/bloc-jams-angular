@@ -14,21 +14,22 @@
             *@desc Stops currently playing song and loads new audio file as currently playing song and loads new audio file as currentBuzzObject
             *@param {object} song
             */
-         var setSong = function(song){
-           if(currentBuzzObject) {
-             currentBuzzObject.stop();
-             SongPlayer.currentSong.playing = null;
-           }
-           currentBuzzObject = new buzz.sound(song.audioUrl, {
-             formats: ['mp3'],
-             preload: true
-           });
+            var setSong = function(song) {
+              if (currentBuzzObject) {
+                currentBuzzObject.stop();
+                SongPlayer.currentSong.playing = null;
+              }
 
-           currentBuzzObject.bind('timeupdate', function() {
-              $rootScope.$apply(function() {
-                SongPlayer.currentTime = currentBuzzObject.getTime();
-              });
-            });
+            currentBuzzObject = new buzz.sound(song.audioUrl, {
+                formats: ['mp3'],
+                preload: true
+                });
+
+            currentBuzzObject.bind('timeupdate', function() {
+                $rootScope.$apply(function() {
+                  SongPlayer.currentTime = currentBuzzObject.getTime();
+                });
+           });
 
            SongPlayer.currentSong = song;
          };
@@ -81,7 +82,6 @@
                 }
            }
         };
-
 
 
        SongPlayer.pause = function(song){
@@ -138,11 +138,25 @@
        *@desc Set Current time (in seconds) if currently playing song
        *@param {Number} time
        */
+
        SongPlayer.setCurrentTime = function(time){
          if(currentBuzzObject){
            currentBuzzObject.setTime(time);
          }
        };
+        /**
+        *@desc sets and updates the volume of the currently playing song.
+        *@type {number}
+        */
+         SongPlayer.volume= 1;
+         SongPlayer.volume.max= 100;
+
+         SongPlayer.setVolume = function(value){
+           if(currentBuzzObject){
+             currentBuzzObject.setVolume(value);
+           }
+         };
+
 
          return SongPlayer;
     };
