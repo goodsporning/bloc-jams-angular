@@ -138,33 +138,24 @@
        *@desc Set Current time (in seconds) if currently playing song
        *@param {Number} time
        */
+
        SongPlayer.setCurrentTime = function(time){
          if(currentBuzzObject){
            currentBuzzObject.setTime(time);
          }
        };
-       //  /**
-       //  *@desc sets and updates the volume of the currently playing song.
-       //  *@type {number}
-       //  */
-         SongPlayer.volume = null;
+        /**
+        *@desc sets and updates the volume of the currently playing song.
+        *@type {number}
+        */
+         SongPlayer.volume= 1;
+         SongPlayer.volume.max= 100;
 
          SongPlayer.setVolume = function(value){
            if(currentBuzzObject){
              currentBuzzObject.setVolume(value);
            }
-         }; 
-
-        // SongPlayer.setVolume();
-
-        //  currentBuzzObject.bind('volumeUpdate', function() {
-        //      $rootScope.$apply(function() {
-        //        SongPlayer.volume = currentBuzzObject.setVolume();
-        //      });
-        // });
-
-         //SongPlayer.setVolume(100);
-
+         };
 
 
          return SongPlayer;
